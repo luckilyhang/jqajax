@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        ul{
+            list-style: none;
+            width:302px;
+        }
+
+        .box{
+            width: 302px;
+            margin:100px auto;
+
+        }
+        input{
+            width: 250px;
+            height: 30px;
+            border:1px solid #b2b4d8;
+            float: left;
+        }
+        input:focus{
+            outline: none ;
+        }
+        button:focus{
+            outline: none ;
+        }
+        button{
+            width: 50px;
+            height: 32px;
+            border:none;
+            background-color: #030668;
+            color: #fff;
+            float: left;
+            font-size:12px ;
+            border-radius:0 10px 10px 0;
+        }
+        ul>li{
+            width: 302px;
+            height: 20px;
+            cursor: pointer;
+            line-height: 20px;
+            font-size: 12px;
+            margin-left:2px;
+        }
+        li:hover{
+            background-color: #a5a5a5;
+        }
+        .fix{
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <input type="text" placeholder="百度一下，你就知道" autofocus > <button>百度一下</button>
+        <div class="fix"></div>
+        <ul></ul>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/2.1.1-rc1/jquery.min.js"></script>
+    <script>
+
+    $(function(){
+        $("input").on("keyup",function(){
+            var text=$(this).val();
+            $.ajax({
+            url:"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?",
+                 type:"get",
+                data:{wd:text},
+            dataType:"jsonp",
+            jsonp:"cb",
+                success:function(data){
+                    var str="";
+                for(var i=0;i<data.s.length;i++){
+                     str+="<li>"+data.s[i]+"</li>";
+                }
+                     $("ul").html(str);
+                },
+                error:function(){
+                    alert("请求失败");
+                }
+
+
+            })
+        })
+
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
